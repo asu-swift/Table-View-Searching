@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource,UISearchBarDelegat
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var myTableView: UITableView!
-    let data = ["tools",]
+    let data = ["screwdriver","saw","hammer","panelsaw"]
     
     var filteredData: [String]!
     
@@ -23,15 +23,14 @@ class ViewController: UIViewController, UITableViewDataSource,UISearchBarDelegat
         searchBar.delegate = self
         filteredData = data
     }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+    func tableView(_ myTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = myTableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as UITableViewCell
+        cell.textLabel?.text = filteredData[indexPath.row]
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let myCell = tableView.dequeueReusableCell(withIdentifier: "toolTableView")
-        let holderText = data[indexPath.row]
-        myCell?.textLabel?.text = holderText
-        return myCell!
+    func tableView(_ myTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredData.count
     }
     func searchBar(_searchBar: UISearchBar, textDidChange searchText: String)
     {
